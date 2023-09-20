@@ -1,0 +1,11 @@
+            let ele_{{field_name}} = $('#{{field_name}}');
+            pub.getFun({}, '/backend/{{v_path}}{{m_name}}/provide_data_for_selection', function (res) {
+                ele_{{field_name}}.find("option").remove();
+                ele_{{field_name}}.append('<option value="">请选择</option>');
+                $.each(res.data, function (key, item) {
+                    let selected = item.{{relation_primary_key}} == ck_{{field_name}} ? ' selected' : '';
+                    let optionStr = "<option value=\"" + item.{{relation_primary_key}} + "\"" + selected + ">" + item.{{relation_title_key}} + "</option>";
+                    ele_{{field_name}}.append(optionStr);
+                });
+                form.render('select');
+            });

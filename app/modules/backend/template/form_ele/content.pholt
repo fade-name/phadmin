@@ -1,0 +1,8 @@
+                    <div class="layui-form-item">
+                        <label for="{{field_name}}" class="layui-form-label">
+                            <span class="x-red"></span>{{field_text}}
+                        </label>
+                        <div class="layui-input-inline" style="width:72%;">
+                            <textarea id="editor_{{field_name}}" name="{{field_name}}">{{field_def_edi_value}}</textarea>
+                        </div>
+                    </div>

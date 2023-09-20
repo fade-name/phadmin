@@ -1,0 +1,23 @@
+            let siu_{{field_name}} = upload.render({
+                elem: '#siu_img_up_btn_{{field_name}}',
+                url: '/backend/upload/index',
+                before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#siu_prev_s_{{field_name}}').attr('src', result);
+                    });
+                    lIdx = layer.load(2, {time: 50 * 1000});
+                },
+                done: function (res) {
+                    if (res.code !== 1) {
+                        layer.close(lIdx);
+                        $('#siu_prev_s_{{field_name}}').attr('src', '/images/img_prev.jpg');
+                        $('#siu_text_tip_{{field_name}}').html(res.msg);
+                    } else {
+                        $('#{{field_name}}').val(res.data.path);
+                        layer.close(lIdx);
+                        $('#siu_text_tip_{{field_name}}').html('');
+                        layer.msg('上传成功');
+                    }
+                }
+            });

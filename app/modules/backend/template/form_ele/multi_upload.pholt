@@ -1,0 +1,33 @@
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{{field_text}}</label>
+                        <div class="layui-input-block">
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn layui-btn-normal"
+                                        id="multi_upload_{{field_name}}_choice_btn">选择文件
+                                </button>
+                                <div class="layui-upload-list" style="max-width:80%;">
+                                    <table class="layui-table">
+                                        <colgroup>
+                                            <col>
+                                            <col width="150">
+                                            <col width="260">
+                                            <col width="150">
+                                        </colgroup>
+                                        <thead>
+                                        <tr>
+                                            <th>文件名</th>
+                                            <th>大小</th>
+                                            <th>上传状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="multi_upload_{{field_name}}_list"></tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="layui-btn"
+                                        id="multi_upload_{{field_name}}_action_btn">开始上传
+                                </button>
+                                <input type="hidden" id="{{field_name}}" name="{{field_name}}" value="{{field_def_edi_value}}">
+                            </div>
+                        </div>
+                    </div>

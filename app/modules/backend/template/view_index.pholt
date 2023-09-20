@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>管理后台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/>
+    <link rel="stylesheet" href="/style/x_admin/css/font.css">
+    <link rel="stylesheet" href="/style/x_admin/css/xadmin.css">
+    <script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/style/x_admin/js/xadmin.js"></script>
+    <script type="text/javascript" src="/static/modules.js?v={{style_ver}}"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <blockquote class="layui-elem-quote">{{data_table_comment}}管理</blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12" style="margin-top:-25px;">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <button id="batchDel" class="layui-btn layui-btn-danger">
+                        <i class="layui-icon"></i>批量删除
+                    </button>
+                    <a class="layui-btn" href="/backend/{{v_path}}{{m_name}}/add"><i class="layui-icon"></i>新增数据</a>
+                </div>
+                <div class="layui-card-body layui-table-body layui-table-main">
+                    <table class="layui-table layui-form">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkAllCk" name="selAll" lay-skin="primary"
+                                       lay-filter="checkAllCk" title="/{{data_pri_key_comment}}"></th>
+                            {{list_th_title}}
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if dataList['list'] %}
+                        {% for key,item in dataList['list'] %}
+                        <tr>
+                            <td><input type="checkbox" class="checkSingleCk" name="item_id[]" value="{{item['{{pri_key_field}}']}}"
+                                       lay-skin="primary" lay-filter="checkSingleCk" title="/{{item['{{pri_key_field}}']}}"></td>
+                            {{list_td_field_value}}
+                            <td>
+                                <a href="javascript:;" onclick="editFun({{item['{{pri_key_field}}']}})">编辑</a>
+                                <a href="javascript:;" class="listForDel" data-id="{{item['{{pri_key_field}}']}}">删除</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="{{list_colspan}}">
+                                暂无数据.
+                            </td>
+                        </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="layui-card-body ">
+                    <div class="page">
+                        {{dataList['pageLink']}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function editFun(id) {
+        xadmin.open('编辑', '/backend/{{v_path}}{{m_name}}/edit?id=' + id, '', '');
+    }
+
+    layui.use(['{{script_mod_name}}'], function () {
+        let m = layui.{{script_mod_name}};
+        m.initList();
+    });
+</script>
+</html>

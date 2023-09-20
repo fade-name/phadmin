@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>管理后台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/>
+    <link rel="stylesheet" href="/style/x_admin/css/font.css">
+    <link rel="stylesheet" href="/style/x_admin/css/xadmin.css">
+    {{introducing_third_party_styles}}
+    <script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/style/x_admin/js/xadmin.js"></script>
+    <script type="text/javascript" src="/static/modules.js?v={{style_ver}}"></script>
+    {{introducing_third_party_script}}
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <blockquote class="layui-elem-quote">添加{{data_table_comment}}</blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <form id="dataForm" class="layui-form" method="post">
+{{page_add_fields_body_str}}
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <button id="submitBtn" class="layui-btn" lay-filter="submit" lay-submit="">
+                            保　　存
+                        </button>
+                    </div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{xm_select_script}}
+<script>
+{{e_kind_editor_script}}
+</script>
+<script>
+    {{selected_default_check}}
+    layui.use(
+        ['{{script_mod_name}}'],
+        function () {
+            let m = layui.{{script_mod_name}};
+            m.initAdd();
+        }
+    );
+</script>
+</body>
+</html>

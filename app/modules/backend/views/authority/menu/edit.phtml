@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>管理后台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/>
+    <link rel="stylesheet" href="/style/x_admin/css/font.css">
+    <link rel="stylesheet" href="/style/x_admin/css/xadmin.css">
+    <script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/style/x_admin/js/xadmin.js"></script>
+    <script type="text/javascript" src="/static/modules.js?v={{style_ver}}"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <blockquote class="layui-elem-quote">编辑菜单节点</blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <form id="dataForm" class="layui-form" method="post" data-edit_id="{{editData['id']}}">
+                    <div class="layui-form-item">
+                        <label for="parent_id" class="layui-form-label">
+                            <span class="x-red"></span>上级节点</label>
+                        <div class="layui-input-inline">
+                            <select id="parent_id" name="parent_id" class="parent_id" lay-filter="parent_id">
+                                <option value="0">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="rule_path" class="layui-form-label">
+                            <span class="x-red"></span>规则路径
+                        </label>
+                        <div class="layui-input-inline" style="width:300px;">
+                            <input type="text" id="rule_path" name="rule_path" required="required"
+                                   placeholder="(限字母及斜杠)两层级以内自动追加index"
+                                   autocomplete="off" class="layui-input" maxlength="60"
+                                   lay-verify="rule_path" value="{{editData['rule_path']}}">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">如：abc，则访问路径为：abc/index；如：abc/ctrl，
+                                则访问：abc/ctrl/index；如：abc/ctrl/action，则访问：abc/ctrl/action</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="title" class="layui-form-label">
+                            <span class="x-red"></span>菜单名称
+                        </label>
+                        <div class="layui-input-inline" style="width:240px;">
+                            <input type="text" id="title" name="title" required="required"
+                                   autocomplete="off" class="layui-input" maxlength="40"
+                                   lay-verify="title" value="{{editData['title']}}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="icon" class="layui-form-label">
+                            <span class="x-red"></span>图标
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="icon" name="icon" required="required"
+                                   autocomplete="off" class="layui-input code" maxlength="20"
+                                   value="{{editData['icon']}}">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">参照图标字体，不确定请留空</span>
+                        </div>
+                    </div>
+                    <!--url(外部URL)-->
+                    <div class="layui-form-item">
+                        <label for="is_menu" class="layui-form-label">
+                            <span class="x-red"></span>是否为菜单
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="is_menu" lay-skin="primary" value="0"
+                                   title="否" {% if('0'==editData['is_menu']) %}checked="checked"{% endif %}>
+                            <input type="radio" name="is_menu" lay-skin="primary" value="1"
+                                   title="是" {% if('1'==editData['is_menu']) %}checked="checked"{% endif %}>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="weigh" class="layui-form-label">
+                            <span class="x-red"></span>排序
+                        </label>
+                        <div class="layui-input-inline" style="width:100px;">
+                            <input type="text" id="weigh" name="weigh" required="required" autocomplete="off"
+                                   class="layui-input for-only-numbr" maxlength="8" value="{{editData['weigh']}}">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">越小越排前</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="remark" class="layui-form-label">
+                            <span class="x-red"></span>备注
+                        </label>
+                        <div class="layui-input-inline" style="width:350px;">
+                            <input type="text" id="remark" name="remark" autocomplete="off"
+                                   class="layui-input" maxlength="200" lay-verify="remark"
+                                   value="{{editData['remark']}}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="status" class="layui-form-label">
+                            <span class="x-red"></span>状态
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="status" lay-skin="primary" value="normal"
+                                   title="显示" {% if('normal'==editData['status']) %}checked="checked"{% endif %}>
+                            <input type="radio" name="status" lay-skin="primary" value="lock"
+                                   title="隐藏" {% if('lock'==editData['status']) %}checked="checked"{% endif %}>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <button id="submitBtn" class="layui-btn" lay-filter="submit" lay-submit="">
+                            保 存
+                        </button>
+                    </div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let sid = "{{editData['parent_id']}}";
+    layui.use(
+        ['authority_menu'],
+        function () {
+            let m = layui.authority_menu;
+            m.initEdit(sid);
+        }
+    );
+</script>
+</body>
+</html>

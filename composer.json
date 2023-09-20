@@ -1,0 +1,17 @@
+{
+    "require": {
+        "gregwar/captcha": "^1.1",
+        "houdunwang/arr": "^2.02",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-curl": "*",
+        "ext-zlib": "*",
+        "ext-fileinfo": "*",
+        "ext-redis": "*",
+        "ext-mysql_xdevapi": "*",
+        "ext-imagick": "*",
+        "ext-gd": "*",
+        "ext-openssl": "*",
+        "ext-bcmath": "*"
+    }
+}

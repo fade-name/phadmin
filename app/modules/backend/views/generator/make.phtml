@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>管理后台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/>
+    <link rel="stylesheet" href="/style/x_admin/css/font.css">
+    <link rel="stylesheet" href="/style/x_admin/css/xadmin.css">
+    <script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/style/x_admin/js/xadmin.js"></script>
+    <script type="text/javascript" src="/static/modules.js?v={{style_ver}}"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <blockquote class="layui-elem-quote">一键生成CRUD（含控制器，模型，视图等完整的数据操作）、菜单
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <form id="dataForm" class="layui-form" method="post">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">数据表</label>
+                            <div class="layui-input-inline">
+                                <select id="data_table" name="data_table" lay-verify="required"
+                                        lay-search="" lay-filter="data_table">
+                                    <option value="">选择要一键生成CRUD的表</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">自定义目录名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="custom_dir" name="custom_dir" autocomplete="off"
+                                       class="layui-input" placeholder="最多支持两级目录如：dir1/dir2" maxlength="60">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">
+                                注：是目录名，不是控制器或模型（控制器和模型自动以表名起）
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label"></label>
+                            <div class="layui-form-mid layui-word-aux" style="width:75%;">
+                                例如：表名为pha_funny_cate，若不设置目录名，则直接在controllers下生成控制器：FunnyCateController。
+                                若设置目录名为abc，则在controllers下先创建目录abc，再创建控制器FunnyCateController。两级则创建两级目录后再创建控制器。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">列表展示字段</label>
+                        <div class="layui-input-inline" style="width:60%;">
+                            <div id="list_field" class="xm-select-demo" style="width:100%;"></div>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            若不选，则默认展示全部字段
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="relation" class="layui-form-label">
+                            <span class="x-red"></span>关联数据
+                        </label>
+                        <div class="layui-input-inline" style="width:420px;">
+                            <input type="radio" name="relation" lay-skin="primary" value="0"
+                                   title="不关联" lay-filter="relation" checked>
+                            <input type="radio" name="relation" lay-skin="primary" value="1"
+                                   title="关联（默认以LeftJoin方式关联查询）" lay-filter="relation">
+                        </div>
+                    </div>
+                    <div class="layui-form-item relation_cfg" style="display:none;">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>关联数据设置
+                        </label>
+                        <div id="relate_container" class="layui-input-block"></div>
+                        <div class="layui-form-item"></div>
+                        <div class="layui-input-block">
+                            <button type="button" id="addRelationBtn"
+                                    class="layui-btn layui-btn-sm layui-btn-radius" data_index="0"
+                                    style="margin-left:36px;">添加关联表
+                            </button>
+                            <font color="#999">（关联名称键：即主数据表添加数据时，关联的表的下拉框选择显示的名称字段）（关联表显示字段，若不选则不展示任何字段）</font>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="intro" class="layui-form-label">
+                            <span class="x-red"></span>字段自动识别
+                        </label>
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline" style="width:580px;">
+                                <input type="text" name="discern_field[]" autocomplete="off"
+                                       class="layui-input" maxlength="255"
+                                       placeholder="单选框，类型为varchar且在注释中指定格式（如：性别:0=女,1=男），或类型为枚举enum"
+                                       value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="intro" class="layui-form-label">
+                            <span class="x-red"></span>
+                        </label>
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline" style="width:680px;">
+                                <input type="text" name="discern_field[]" autocomplete="off"
+                                       class="layui-input" maxlength="255"
+                                       placeholder="复选框，类型为varchar且在注释中指定格式（如：关注:book=书籍,music=音乐,film=电影,car=汽车），或类型为set"
+                                       value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="intro" class="layui-form-label">
+                            <span class="x-red"></span>
+                        </label>
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline" style="width:190px;">
+                                <input type="text" name="discern_field[]" autocomplete="off"
+                                       class="layui-input" maxlength="255"
+                                       placeholder="单图上传，类型为varchar"
+                                       value="">
+                            </div>
+                            <div class="layui-input-inline" style="width:190px;">
+                                <input type="text" name="discern_field[]" autocomplete="off"
+                                       class="layui-input" maxlength="255"
+                                       placeholder="多图上传，类型为varchar"
+                                       value="">
+                            </div>
+                            <div class="layui-input-inline" style="width:190px;">
+                                <input type="text" name="discern_field[]" autocomplete="off"
+                                       class="layui-input" maxlength="255"
+                                       placeholder="单文件上传，类型为varchar"
+                                       value="">
+                            </div>
+                            <div class="layui-input-inline" style="width:190px;">
+                                <input type="text" name="discern_field[]" autocomplete="off"
+                                       class="layui-input" maxlength="255"
+                                       placeholder="多文件上传，类型为varchar"
+                                       value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="intro" class="layui-form-label">
+                            <span class="x-red"></span>
+                        </label>
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline" style="width:370px;">
+                                <input type="text" name="discern_field[]" autocomplete="off"
+                                       class="layui-input" maxlength="255"
+                                       placeholder="日期格式，仅年月日，如：2020-05-20，类型为varchar或date"
+                                       value="">
+                            </div>
+                            <div class="layui-input-inline" style="width:390px;">
+                                <input type="text" name="discern_field[]" autocomplete="off"
+                                       class="layui-input" maxlength="255"
+                                       placeholder="日期时间格式，如：2020-05-20 20:50:21，类型为varchar或datetime"
+                                       value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="intro" class="layui-form-label">
+                            <span class="x-red"></span>
+                        </label>
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline" style="width:490px;">
+                                <input type="text" name="discern_field[]" autocomplete="off"
+                                       class="layui-input" maxlength="255"
+                                       placeholder="开关项，类型为tinyint且在注释中指定格式（如：开关:0=关,1=开），值只能是0和1"
+                                       value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="intro" class="layui-form-label">
+                            <span class="x-red"></span>
+                        </label>
+                        <div class="layui-form-mid layui-word-aux">
+                            输入字段名，将识别为指定的类型，多个字段名以逗号“,”相隔
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="m_type" class="layui-form-label">
+                            <span class="x-red"></span>生成方式
+                        </label>
+                        <div class="layui-input-inline" style="width:300px;">
+                            <input type="radio" name="m_type" lay-skin="primary" value="1" title="仅CRUD" checked>
+                            <input type="radio" name="m_type" lay-skin="primary" value="2" title="CRUD和菜单">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="overwrite" class="layui-form-label">
+                            <span class="x-red"></span> 　
+                        </label>
+                        <div class="layui-form-mid layui-word-aux"
+                             style="color:red;">注意：若已生成过，则直接覆盖原来的代码，请自行做好相关备份
+                        </div>
+                    </div>
+                    <!--wait-->
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <button id="submitBtn" class="layui-btn" lay-filter="submit" lay-submit="">
+                            立 即 生 成
+                        </button>
+                    </div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/lib/xm_select/xm-select.js" type="text/javascript"></script>
+<script>
+    window.xms_list_field = null;
+    layui.use(
+        ['generator'],
+        function () {
+            let m = layui.generator;
+            m.initAdd();
+        }
+    );
+</script>
+</body>
+</html>

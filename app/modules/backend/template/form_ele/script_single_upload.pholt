@@ -1,0 +1,15 @@
+            upload.render({
+                elem: '#single_upload_{{field_name}}_choice_btn',
+                url: '/backend/upload/file',
+                accept: 'file', //普通文件
+                done: function (res) {
+                    if (res.code === 1) {
+                        $('#up_msg_{{field_name}}').html('路径：' + res.data.path);
+                        $('#{{field_name}}').val(res.data.path);
+                        layer.msg('上传成功');
+                    } else {
+                        $('#up_msg_{{field_name}}').html('上传失败：' + res.msg);
+                        layer.msg(res.msg);
+                    }
+                }
+            });

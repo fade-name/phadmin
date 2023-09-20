@@ -1,0 +1,23 @@
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red"></span>{{field_text}}
+                        </label>
+                        <button type="button" id="miu_imp_btn_{{field_name}}" data-maxCount="10" class="layui-hide">图片导入</button>
+                        <input type="hidden" id="{{field_name}}" name="{{field_name}}" value="{{field_def_edi_value}}">
+                        <div class="layui-input-block" style="width:90%;">
+                            <div class="layui-input-inlines-self">
+                                <div class="layui-upload-drag-self">
+                                    <div class="ico-add-btn">
+                                        <i class="iconfont">&#xe6b9;</i>
+                                    </div>
+                                    <div class="demo-prev-img layui-hide">
+                                        <img class="layui-upload-img preview-miu-show-img" src="">
+                                        <div class="handle layui-hide">
+                                            <i class="iconfont icon-myself preview-miu-btn">&#xe6e6;</i>
+                                            <i class="iconfont icon-myself del-miu-btn">&#xe69d;</i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>管理后台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/>
+    <link rel="stylesheet" href="/style/x_admin/css/font.css">
+    <link rel="stylesheet" href="/style/x_admin/css/xadmin.css">
+    <!--styles-->
+    <script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/style/x_admin/js/xadmin.js"></script>
+    <script type="text/javascript" src="/static/modules.js?v={{style_ver}}"></script>
+    <!--script-->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <blockquote class="layui-elem-quote">编辑会员用户</blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <form id="dataForm" class="layui-form" method="post" data-edit_id="{{editData['id']}}">
+                    <div class="layui-form-item">
+                        <label for="leader_id" class="layui-form-label">
+                            <span class="x-red"></span>推广元ID
+                        </label>
+                        <div class="layui-input-inline" style="width:30%;">
+                            <select id="leader_id" name="leader_id" class="leader_id"
+                                    lay-filter="leader_id" lay-verify="required">
+                                <option value="0">请选择</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="group_id" class="layui-form-label">
+                            <span class="x-red"></span>会员分组ID
+                        </label>
+                        <div class="layui-input-inline" style="width:30%;">
+                            <select id="group_id" name="group_id" class="group_id"
+                                    lay-filter="group_id" lay-verify="required">
+                                <option value="0">请选择</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="user_name" class="layui-form-label">
+                            <span class="x-red"></span>用户名
+                        </label>
+                        <div class="layui-input-inline" style="width:40%;">
+                            <input type="text" id="user_name" required=""
+                                   autocomplete="off" class="layui-input" maxlength="22"
+                                   placeholder="" value="{{editData['user_name']}}" readonly>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="password" class="layui-form-label">
+                            <span class="x-red"></span>密码
+                        </label>
+                        <div class="layui-input-inline" style="width:40%;">
+                            <input type="text" id="password" name="password" required=""
+                                   autocomplete="off" class="layui-input" maxlength="22"
+                                   placeholder="" value="">
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">头像</label>
+                        <div class="layui-input-block">
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="siu_img_up_btn_avatar">上传图片</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" id="siu_prev_s_avatar" src="{% if not is_empty(editData['avatar']) %}{{editData['avatar']}}{% else %}/images/img_prev.jpg{% endif %}"
+                                         style="width:120px;height:110px;">
+                                    <p id="siu_text_tip_avatar" style="color:red;"></p>
+                                    <input type="hidden" id="avatar" name="avatar" value="{{editData['avatar']}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="nickname" class="layui-form-label">
+                            <span class="x-red"></span>昵称
+                        </label>
+                        <div class="layui-input-inline" style="width:40%;">
+                            <input type="text" id="nickname" name="nickname" required=""
+                                   autocomplete="off" class="layui-input" maxlength="40"
+                                   placeholder="" value="{{editData['nickname']}}">
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="real_name" class="layui-form-label">
+                            <span class="x-red"></span>真实姓名
+                        </label>
+                        <div class="layui-input-inline" style="width:40%;">
+                            <input type="text" id="real_name" name="real_name" required=""
+                                   autocomplete="off" class="layui-input" maxlength="20"
+                                   placeholder="" value="{{editData['real_name']}}">
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="gender" value="0" title="女" {% if('0'==editData['gender']) %}checked="checked"{% endif %}>
+                            <input type="radio" name="gender" value="1" title="男" {% if('1'==editData['gender']) %}checked="checked"{% endif %}>
+                            <input type="radio" name="gender" value="2" title="未知" {% if('2'==editData['gender']) %}checked="checked"{% endif %}>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="birthday" class="layui-form-label">
+                            <span class="x-red"></span>生日
+                        </label>
+                        <div class="layui-input-inline" style="width:120px;">
+                            <input type="text" id="birthday" name="birthday" required="required"
+                                   autocomplete="off" class="layui-input" lay-verify="required"
+                                   placeholder="yyyy-MM-dd" value="{{editData['birthday']}}">
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="mobile" class="layui-form-label">
+                            <span class="x-red"></span>手机号
+                        </label>
+                        <div class="layui-input-inline" style="width:40%;">
+                            <input type="text" id="mobile" name="mobile" required=""
+                                   autocomplete="off" class="layui-input" maxlength="27"
+                                   placeholder="" value="{{editData['mobile']}}">
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="email" class="layui-form-label">
+                            <span class="x-red"></span>EMAIL
+                        </label>
+                        <div class="layui-input-inline" style="width:40%;">
+                            <input type="text" id="email" name="email" required=""
+                                   autocomplete="off" class="layui-input" maxlength="57"
+                                   placeholder="" value="{{editData['email']}}">
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="status" value="normal" title="正常" {% if('normal'==editData['status']) %}checked="checked"{% endif %}>
+                            <input type="radio" name="status" value="lock" title="锁定" {% if('lock'==editData['status']) %}checked="checked"{% endif %}>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <button id="submitBtn" class="layui-btn" lay-filter="submit" lay-submit="">
+                            保　　存
+                        </button>
+                    </div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+//
+</script>
+<script>
+    var ck_leader_id = "{{editData['leader_id']}}";
+    var ck_group_id = "{{editData['group_id']}}";
+    layui.use(
+        ['user_user'],
+        function () {
+            let m = layui.user_user;
+            m.initEdit();
+        }
+    );
+</script>
+</body>
+</html>

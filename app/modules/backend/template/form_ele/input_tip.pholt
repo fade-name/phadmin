@@ -1,0 +1,3 @@
+                        <div class="layui-form-mid layui-word-aux">
+                            {{input_tip_text}}
+                        </div>

@@ -1,0 +1,8 @@
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{{field_text}}</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" {{checked}} name="swc_{{field_name}}" lay-skin="switch"
+                                   lay-filter="swf_{{field_name}}" lay-text="{{field_til0}}|{{field_til1}}">
+                        </div>
+                        <input type="hidden" id="{{field_name}}" name="{{field_name}}" value="{{field_def_edi_value}}">
+                    </div>

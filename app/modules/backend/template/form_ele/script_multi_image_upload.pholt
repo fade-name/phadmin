@@ -1,0 +1,13 @@
+            upload.render({
+                elem: '#miu_imp_btn_{{field_name}}',
+                multiple: true,
+                url: '/backend/upload/index',
+                done: function (res) {
+                    if (res.code !== 1) {
+                        return layer.msg(res.msg);
+                    }
+                    miu_img_up_c.uploadSuccessDone('#miu_imp_btn_{{field_name}}', res);
+                }
+            });
+            miu_img_up_c.ediImageInit('{{field_name}}');
+            miu_img_up_c.uploadEventInitBind();

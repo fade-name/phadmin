@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>管理后台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8"/>
+    <link rel="stylesheet" href="/style/x_admin/css/font.css">
+    <link rel="stylesheet" href="/style/x_admin/css/xadmin.css">
+    <script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/style/x_admin/js/xadmin.js"></script>
+    <script type="text/javascript" src="/static/modules.js?v={{style_ver}}"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <blockquote class="layui-elem-quote">添加管理员</blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <form id="dataForm" class="layui-form" method="post">
+                    <div class="layui-form-item">
+                        <label for="account" class="layui-form-label">
+                            <span class="x-red"></span>账号
+                        </label>
+                        <div class="layui-input-inline" style="width:240px;">
+                            <input type="text" id="account" name="account" required="required"
+                                   autocomplete="off" class="layui-input" maxlength="22"
+                                   lay-verify="account" placeholder="字母数字下划线的组合，最多22位">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="pwd" class="layui-form-label">
+                            <span class="x-red"></span>密码
+                        </label>
+                        <div class="layui-input-inline" style="width:200px;">
+                            <input type="password" id="pwd" name="pwd" required="required"
+                                   autocomplete="off" class="layui-input" maxlength="22" lay-verify="pwd">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            5到22个字符
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="c_pwd" class="layui-form-label">
+                            <span class="x-red"></span>确认密码
+                        </label>
+                        <div class="layui-input-inline" style="width:200px;">
+                            <input type="password" id="c_pwd" name="c_pwd" required="required"
+                                   autocomplete="off" class="layui-input" maxlength="22" lay-verify="confirmPass">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            5到22个字符
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="nickname" class="layui-form-label">
+                            <span class="x-red"></span>昵称
+                        </label>
+                        <div class="layui-input-inline" style="width:260px;">
+                            <input type="text" id="nickname" name="nickname" required="required"
+                                   autocomplete="off" class="layui-input" maxlength="40">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="real_name" class="layui-form-label">
+                            <span class="x-red"></span>真实姓名
+                        </label>
+                        <div class="layui-input-inline" style="width:260px;">
+                            <input type="text" id="real_name" name="real_name" required="required"
+                                   autocomplete="off" class="layui-input" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="avatar" class="layui-form-label">
+                            <span class="x-red"></span>头像
+                        </label>
+                        <div class="layui-input-inline">
+                            <div class="layui-upload">
+                                <div class="layui-btn-container">
+                                    <button type="button" class="layui-btn layui-btn-normal"
+                                            id="choose_file">选择文件
+                                    </button>
+                                    <button type="button" class="layui-btn" id="upload_now">开始上传</button>
+                                </div>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img for-preview-zbig" id="prev_img_prev"
+                                         src="/images/img_prev.jpg"
+                                         style="width:92px;height:90px;">
+                                    &nbsp;
+                                    <label id="tip_txt">等待上传中...</label>
+                                </div>
+                                <div style="height:0px;">
+                                    <input type="hidden" id="avatar" name="avatar" value=""/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="mobile" class="layui-form-label">
+                            <span class="x-red"></span>手机号
+                        </label>
+                        <div class="layui-input-inline" style="width:260px;">
+                            <input type="text" id="mobile" name="mobile"
+                                   autocomplete="off" class="layui-input" maxlength="30" lay-verify="mobileCheck">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="mail" class="layui-form-label">
+                            <span class="x-red"></span>邮箱
+                        </label>
+                        <div class="layui-input-inline" style="width:260px;">
+                            <input type="text" id="mail" name="mail"
+                                   autocomplete="off" class="layui-input" maxlength="45" lay-verify="mailCheck">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="status" class="layui-form-label">
+                            <span class="x-red"></span>状态
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="status" lay-skin="primary" value="normal" title="启用" checked>
+                            <input type="radio" name="status" lay-skin="primary" value="lock" title="禁用">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="x-red"></span>分配角色</label>
+                        <div class="layui-input-block">
+                            <table class="layui-table layui-input-block" style="width:90%;">
+                                <tbody style="border:0;">
+                                <tr style="border:0;">
+                                    <td>
+                                        <div class="layui-input-block" style="margin-left:0px;">
+                                            {% for key,item in roles %}
+                                            <input type="checkbox" name="role_ids[]" lay-skin="primary"
+                                                   title="{{item['role_name']}}" value="{{item['id']}}">
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <button id="submitBtn" class="layui-btn" lay-filter="submit" lay-submit="">
+                            保 存
+                        </button>
+                    </div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(
+        ['authority_admin'],
+        function () {
+            let m = layui.authority_admin;
+            m.initAdd();
+        }
+    );
+</script>
+</body>
+</html>

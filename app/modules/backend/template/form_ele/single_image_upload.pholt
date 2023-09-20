@@ -1,0 +1,14 @@
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{{field_text}}</label>
+                        <div class="layui-input-block">
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="siu_img_up_btn_{{field_name}}">上传图片</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" id="siu_prev_s_{{field_name}}" src="{{prev_def_image}}"
+                                         style="width:120px;height:110px;">
+                                    <p id="siu_text_tip_{{field_name}}" style="color:red;"></p>
+                                    <input type="hidden" id="{{field_name}}" name="{{field_name}}" value="{{field_def_edi_value}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>

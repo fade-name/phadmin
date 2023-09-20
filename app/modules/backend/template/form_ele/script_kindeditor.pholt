@@ -1,0 +1,14 @@
+        window.e_{{field_name}} = K.create('#editor_{{field_name}}', {
+            resizeType: 0,
+            allowPreviewEmoticons: false,
+            allowImageUpload: true,
+            uploadJson: '/backend/kind/file_upload',
+            allowFileManager: true,
+            fileManagerJson: '/backend/kind/file_manage',
+            //items: ['source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste', 'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/', 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'pagebreak', 'anchor', 'link', 'unlink', '|', 'about'],
+            width: '90%',
+            height: '380px',
+            afterBlur: function () {
+                this.sync();
+            }
+        });

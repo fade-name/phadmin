@@ -1,0 +1,11 @@
+                    <div class="layui-form-item">
+                        <label for="{{field_name}}" class="layui-form-label">
+                            <span class="x-red"></span>{{field_text}}
+                        </label>
+                        <div class="layui-input-inline" style="width:120px;">
+                            <input type="text" id="{{field_name}}" name="{{field_name}}" required="required"
+                                   autocomplete="off" class="layui-input" lay-verify="required"
+                                   placeholder="yyyy-MM-dd" value="{{field_def_edi_value}}">
+                        </div>
+{{field_input_tip}}
+                    </div>

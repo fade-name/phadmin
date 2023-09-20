@@ -1,0 +1,92 @@
+            let multi_upload_{{field_name}}_ins = upload.render({
+                elem: '#multi_upload_{{field_name}}_choice_btn',
+                elemList: $('#multi_upload_{{field_name}}_list'),
+                url: '/backend/upload/file',
+                accept: 'file',
+                multiple: true,
+                number: 12,
+                auto: false,
+                bindAction: '#multi_upload_{{field_name}}_action_btn',
+                exts: 'jpg|jpeg|png|gif|bmp|mp3|mp4|rar|doc|docx|txt|zip|rar|gz|bz2|xls|xlsx|wav|wmv|pptx|avi',
+                choose: function (obj) {
+                    let that = this;
+                    let files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                    //读取本地文件
+                    obj.preview(function (index, file, result) {
+                        let tr = $(['<tr id="upload-' + index + '">'
+                            , '<td>' + file.name + '</td>'
+                            , '<td>' + (file.size / 1014).toFixed(1) + 'kb</td>'
+                            , '<td>等待上传</td>'
+                            , '<td>'
+                            , '<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+                            , '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+                            , '</td>'
+                            , '</tr>'].join(''));
+                        //单个重传
+                        tr.find('.demo-reload').on('click', function () {
+                            obj.upload(index, file);
+                        });
+                        //删除
+                        tr.find('.demo-delete').on('click', function () {
+                            delete files[index]; //删除对应的文件
+                            tr.remove();
+                            multi_upload_{{field_name}}_ins.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                        });
+                        that.elemList.append(tr);
+                        //element.render('progress'); //渲染新加的进度条组件
+                    });
+                },
+                done: function (res, index, upload) { //成功的回调
+                    let that = this;
+                    if (res.code === 1) { //上传成功
+                        let v = $('#{{field_name}}').val();
+                        v = pub.isEmpty(v) ? res.data.path : v + ',' + res.data.path;
+                        $('#{{field_name}}').val(v);
+                        let tr = that.elemList.find('tr#upload-' + index), tds = tr.children();
+                        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                        tds.eq(3).html(''); //清空操作
+                        delete this.files[index]; //删除文件队列已经上传成功的文件
+                        return;
+                    }
+                    this.error(index, upload, res.msg);
+                },
+                allDone: function (obj) { //多文件上传完毕后的状态回调
+                    console.log(obj);
+                },
+                error: function (index, upload, msg) { //错误回调
+                    let that = this;
+                    let tr = that.elemList.find('tr#upload-' + index), tds = tr.children();
+                    tds.eq(2).html('<span style="color:#FF5722;">' + msg + '</span>');
+                    tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+                },
+                ediInit: function () {
+                    let v = $('#{{field_name}}').val();
+                    if (!pub.isEmpty(v)) {
+                        let a = v.split(',');
+                        for (let ai = 0; ai < a.length; ai++) {
+                            let tr = $(['<tr id="upload-' + ai + '">'
+                                , '<td>' + a[ai] + '</td>'
+                                , '<td>-</td>'
+                                , '<td>已上传</td>'
+                                , '<td>'
+                                , '<button class="layui-btn layui-btn-xs layui-btn-danger demo-upd-delete" date-val="' + a[ai] + '">删除</button>'
+                                , '</td>'
+                                , '</tr>'].join(''));
+                            tr.find('.demo-upd-delete').on('click', function () {
+                                let rv = $(this).attr('date-val');
+                                let nv = $('#{{field_name}}').val();
+                                nv = ',' + nv + ',';
+                                nv = nv.replace(',' + rv + ',', ',');
+                                nv = nv.replace(new RegExp('^\,+|\,+$', 'g'), '');
+                                $('#{{field_name}}').val(nv);
+                                tr.remove();
+                            });
+                            $('#multi_upload_{{field_name}}_list').append(tr);
+                        }
+                    }
+                }
+                // progress: function (n, elem, e, index) { //注意：index 参数为 layui 2.6.6 新增
+                //     element.progress('progress-demo-' + index, n + '%'); //执行进度条。n 即为返回的进度百分比
+                // }
+            });
+            multi_upload_{{field_name}}_ins.config.ediInit();

@@ -1,0 +1,4 @@
+            form.on('switch(swf_{{field_name}})', function (data) {
+                let v = this.checked ? 1 : 0;
+                $('#{{field_name}}').val(v);
+            });

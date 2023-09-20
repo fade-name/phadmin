@@ -1,0 +1,27 @@
+            window.xms_{{field_name}} = xmSelect.render({
+                el: '#xms_{{field_name}}',
+                name: '{{field_name}}', //自定义下拉框的名称
+                initValue: ck_{{field_name}},
+                radio: false,
+                filterable: true,
+                remoteSearch: true,
+                remoteMethod: function (val, cb, show) {
+                    //if (!val) {return cb([]);}
+                    $.ajax({
+                        type: "GET",
+                        url: '/backend/{{v_path}}{{m_name}}/provide_data_for_xms_selection',
+                        data: {search_keyword: val},
+                        dataType: "json",
+                        success: function (res) {
+                            cb(res.data);
+                        },
+                        error: function () {
+                            cb([]);
+                        }
+                    });
+                },
+                language: 'zn',
+                data: {{init_data}},
+                on: function (data) {
+                }
+            });

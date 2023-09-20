@@ -1,0 +1,7 @@
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{{field_text}}</label>
+                        <div class="layui-input-block">
+                            {{radio_value_list}}
+                        </div>
+{{field_input_tip}}
+                    </div>
