@@ -33,11 +33,11 @@ Linux + Nginx + PHP7.3 + MySQL8
 4.  api接口模块默认使用了简单的随机字符及时间戮的签名验证
 
 # 图例
-![一](https://github.com/fade-name/phadmin/blob/main/public/assets/1.png)
-![二](https://github.com/fade-name/phadmin/blob/main/public/assets/2.png)
-![三](https://github.com/fade-name/phadmin/blob/main/public/assets/3.png)
-![四](https://github.com/fade-name/phadmin/blob/main/public/assets/4.png)
-![五](https://github.com/fade-name/phadmin/blob/main/public/assets/5.png)
+![一](https://gitee.com/fade-name/phadmin/raw/master/public/assets/1.png)
+![二](https://gitee.com/fade-name/phadmin/raw/master/public/assets/2.png)
+![三](https://gitee.com/fade-name/phadmin/raw/master/public/assets/3.png)
+![四](https://gitee.com/fade-name/phadmin/raw/master/public/assets/4.png)
+![五](https://gitee.com/fade-name/phadmin/raw/master/public/assets/5.png)
 
 # 联系方式
 有问题或意见建议请联系QQ：2295943610，或邮件至：2295943610@qq.com
@@ -45,7 +45,5 @@ Linux + Nginx + PHP7.3 + MySQL8
 # 捐赠
 若此项目能得到你的青睐，欢迎捐赠支持作者持续开发与维护，感谢所有支持开源的朋友
 
-![六](https://github.com/fade-name/phadmin/blob/main/public/assets/6.jpg)
-![七](https://github.com/fade-name/phadmin/blob/main/public/assets/7.jpg)
-![测试](https://github.com/fade-name/phadmin/blob/c31b7e553c910a9ed3d15b351f0c986f7f14d6fb/public/assets/1.png)
-![测试2](https://gitee.com/fade-name/phadmin/raw/master/public/assets/1.png)
+![六](https://gitee.com/fade-name/phadmin/raw/master/public/assets/6.jpg)
+![七](https://gitee.com/fade-name/phadmin/raw/master/public/assets/7.jpg)
