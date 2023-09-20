@@ -48,3 +48,4 @@ Linux + Nginx + PHP7.3 + MySQL8
 ![六](https://github.com/fade-name/phadmin/blob/main/public/assets/6.jpg)
 ![七](https://github.com/fade-name/phadmin/blob/main/public/assets/7.jpg)
 ![测试](https://github.com/fade-name/phadmin/blob/c31b7e553c910a9ed3d15b351f0c986f7f14d6fb/public/assets/1.png)
+![测试2](https://gitee.com/fade-name/phadmin/raw/master/public/assets/1.png)
