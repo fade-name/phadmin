@@ -44,5 +44,6 @@ Linux + Nginx + PHP7.3 + MySQL8
 
 # 捐赠
 若此项目能得到你的青睐，欢迎捐赠支持作者持续开发与维护，感谢所有支持开源的朋友
+
 ![六](https://github.com/fade-name/phadmin/blob/main/public/assets/6.jpg)
 ![七](https://github.com/fade-name/phadmin/blob/main/public/assets/7.jpg)
