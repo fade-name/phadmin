@@ -1,0 +1,12 @@
+*.md linguist-language=PHP
+*.php linguist-language=PHP
+*.phtml linguist-language=PHP
+*.yml linguist-language=PHP
+*.html linguist-language=PHP
+*.js linguist-language=PHP
+*.xml linguist-language=PHP
+*.css linguist-language=PHP
+*.sql linguist-language=PHP
+*.uml linguist-language=PHP
+*.cmd linguist-language=PHP
+*.less linguist-language=PHP
